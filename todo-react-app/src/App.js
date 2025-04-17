@@ -6,7 +6,7 @@ import Example from './Example'
 function App() {
   return (
     <div className="App">
-      <Todo /> {/*Todo 컴포넌트 추가하기*/}
+      <Example /> {/*Todo 컴포넌트 추가하기*/}
     </div>
   );
 }
