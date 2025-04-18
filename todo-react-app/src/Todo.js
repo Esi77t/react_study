@@ -13,7 +13,7 @@ let Todo = (props) => {
         // onclick -> onClick
         // class -> className
         <ListItem>
-            <Checkbox checked={item.done}/>
+            <Checkbox checked={item.done} />
             <ListItemText>
                 <InputBase
                     inputProps={{"aria-label" : "naked"}} 
