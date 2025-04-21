@@ -31,6 +31,23 @@ function App() {
     setItem(prev => [...prev, newItem])
     console.log("items : ", [...items, newItem])
   }
+
+  // 삭제를 해주는 deleteItem()함수 만들기
+  // useState(), 기능을 하는 함수를 App.js에 만든 이유
+  // 전체 Todo리스트는 App.js에서 관리를 하기 때문
+  // DB에서의 삭제는 delete from 테이블 where id = 0;...
+  const deleteItem = (item) => {
+    // 배열에서 삭제하려고 하는 아이템을 찾는다
+    const newItems = items.filter(e => e.id !== item.id);
+    // 삭제할 아이템을 제외한 아이템을 다시 배열에 저장
+    setItem([...newItems]);
+  }
+
+  const editItem = () => {
+    setItem([...items]);  // 얘가 재렌더링해줌
+  }
+
+
   // react는 key속성에 들어있는 값을 참고해서, 리스트의 요소가 변경될 경우 어떤 요소가 변경되었는지
   // 빠르게 파악할 수 있다.
   const todoItems = items.length > 0 && 
@@ -40,7 +57,8 @@ function App() {
     // 배경색과 그림자 효과를 콘텐츠를 돋보이게 한다
     <Paper style={{margin: 16}}>
        <List>  {/* 일련의 항복을 세로로 나열하는 컨테이너 역할 */}
-        {items.map((item) => <Todo item={item} key={item.id} />)}
+        {items.map((item) => 
+        <Todo item={item} key={item.id} deleteItem={deleteItem} editItem={editItem} />)}
       </List>
     </Paper>
 
