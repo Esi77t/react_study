@@ -15,7 +15,7 @@ import { useState, useEffect, useRef } from "react";
 // 2. DOM 접근
 // JSX로 작성한 요소를 ref속성으로 연결해주면, 해당 DOM 노드에 직접 접근할 수 있다
 
-export const Counter_ref = () => {
+const Counter_ref = () => {
     const countRef = useRef(0);
 
     const onClick = () => {
@@ -32,7 +32,7 @@ export const Counter_ref = () => {
 }
 
 // DOM 접근 예시
-export const InputFocus = () => {
+const InputFocus = () => {
     // inputEl = {current : null};
     const inputEl = useRef(null);
 
@@ -53,7 +53,7 @@ export const InputFocus = () => {
 // 이름과 닉네임을 입력하는 필드를 만든다
 // 이름과 닉네임을 입력하면 밑에 띄운다
 // 초기화 버튼을 만들고 버튼을 누를 시 이름 입력 필드에 포커스가 가도록 만들기
-export const InputSample = () => {
+const InputSample = () => {
 
     const [inputs, setInputs] = useState({
         name: "",
@@ -104,3 +104,35 @@ export const InputSample = () => {
         </div>
     )
 }
+
+// 숫자를 증가시키면서 이전 값과 현재 값을 화면에 표시하는 예제
+// 컴포넌트 아님
+const usePrevious = (value) => {
+    const prevRef = useRef();
+
+    useEffect(() => {
+        prevRef.current = value;    // 최신 value를 저장
+    }, [value])
+
+    return prevRef.current;
+}
+
+const PreviousValue = () => {
+    const [count, setCount] = useState(0);
+    const prevCount = usePrevious(count);   // 이전 값을 저장
+
+    return(
+        <div>
+            <h2>현재 값 : {count}</h2>
+            <h2>이전 값 : {prevCount !== undefined ? prevCount : '없음'}</h2>
+            <button onClick={() => setCount(count + 1)}>
+                증가({count})
+            </button>
+        </div>
+    )
+
+}
+
+
+
+export { Counter_ref, InputFocus, InputSample, PreviousValue }

@@ -32,7 +32,7 @@ const TimerFunction = () => {
 // 외부에서 데이터를 불러와 화면에 출력해주는 예제
 // fetch() 함수 사용하기
 // 브라우저가 제공하는 네트워크 요청 인터페이스
-export const UserList = () => {
+const UserList = () => {
     const [users, setUsers] = useState([]);       // 유저 데이터를 담기 위한 상태
     const [loading, setLoading] = useState(true); // 로딩상태
     const [error, setError] = useState(null);     // 에러상태
@@ -88,7 +88,7 @@ export const UserList = () => {
 }
 
 // Count컴포넌트 만들기
-export const Count = () => {
+const Count = () => {
     const [count, setCount] = useState(0);
     const [renderCount, setRenderCount] = useState(0);
 
@@ -106,7 +106,32 @@ export const Count = () => {
     )
 }
 
+const Cleanup = (props) => {
+    // 외부에서 가져온 값은 읽기 전용이라 수정이 불가능
+    // 수정하고 싶으면 값을 다시 state에 담아야 한다
+    // App.js에서 value를 받아서 화면에 출력하기
+    const [value, setValue] = useState(props.value);
 
+    useEffect(() => {
+        console.log(`▶ 이펙트 실행 : ${value}`);
+
+        // 클린업 함수
+        // 사이드 이펙트 함수의 return에 들어있는 함수
+        return () => {
+            console.log(`■ 정리(cleanup) : ${value}`);
+        }
+    }, [value]);
+
+    return(
+        <div>
+            <p>현재 value : {value}</p>
+            <button onClick={() => setValue(value + 1)}>
+                value 증가({value})
+            </button>
+        </div>
+    )
+}
 
 
 export default TimerFunction
+export { UserList, Count, Cleanup }
