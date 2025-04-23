@@ -2,7 +2,7 @@
 // EX) /:lang/home으로 언어코드를 받아서 해당 언어에 맞는 내용을 보여주기
 // EX) /eng/home, /kor/home
 
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // 컴포넌트 이름은 Home
 const content = {
@@ -55,7 +55,12 @@ const Categories = () => {
     <div>
       <h2>카테고리 선택</h2>
       <ul>
+        {/* map() : 배열에 들어있는 내용을 순차적으로 꺼내서 가공을 한다 */}
+        {/* 카테고리 배열에 들어있는 내용을 꺼내서 리스트로 만들고 URL로 이동할 수 있는 링크를 생성함 */}
         {categories.map(category => (
+          // key에 고유한 값이 들어가는 건 맞다
+          // li의 값이 변경될 때 react가 구분하는 값으로 인식함
+          // 효율적으로 파악하기 위한 고유 식별자 역할을 한다
           <li key={category.id}>
             <Link to={`/categories/${category.id}`}>{category.name}</Link>
           </li>
@@ -66,6 +71,7 @@ const Categories = () => {
 }
 
 const Products = () => {
+  // path에서 넘어온 값을 구조 분해 할당으로 받는다
   const { categoriId } = useParams();
   // 카테고리별 상품
   const products = [
@@ -77,7 +83,9 @@ const Products = () => {
     { id: 6, name: '우유', categoryId: '3' },
   ];
 
-  const filterProducts = products.filter(product => product.categoryId === categoriId);
+  // 카테고리id와 프로덕츠의 카테고리id가 일치하는지 필터링
+  const filterProducts = products.filter(product => 
+    product.categoryId === categoriId);
 
   return(
     <div>
@@ -85,7 +93,9 @@ const Products = () => {
       <ul>
         {filterProducts.map(product => (
           <li key={product.id}>
-            <Link to={`/categories/${categoriId}/products/${product.id}`}>{product.name}</Link>
+            <Link to={`/categories/${categoriId}/products/${product.id}`}>
+            {product.name}
+            </Link>
           </li>
         ))}
       </ul>
@@ -104,7 +114,10 @@ const ProductDetail = () => {
     { id: 5, name: '사과', description: '신선한 사과입니다.', categoryId: '3' },
     { id: 6, name: '우유', description: '신선한 우유입니다.', categoryId: '3' },
   ];
-
+  
+  // find() : 특정 조건에 맞는 값이 나오면 그 값만 걸러낸다
+  // 만약 배열에서 특정 조건에 부합 한다면 그 배열만 가져온다
+  // find(item => return 값)
   const product = p_detail.find(
     item => item.id === Number(productId) && item.categoryId === categoriId
   );
