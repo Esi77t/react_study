@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { CartContext } from "../contexts/CartContext";
 
 const Header = () => {
+    // 제품의 내용이 담겨있는 배열을 받음
     const { items } = useContext(CartContext);
 
     // 총 개수

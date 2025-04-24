@@ -1,13 +1,19 @@
 import { useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
 
+// 장바구니 페이지
+// 장바구니 state에 아무것도 들어있지 않으면 "장바구니가 비어있습니다"
+// 제품이름 - 단가
+// 개수를 조절하는 input
+// 삭제하기 버튼
+// 장바구니 비우기 버튼
 const CartPage = () => {
     const { items, removeItem, updateQuantity, clearCart  } = useContext(CartContext);
 
     return(
         <div>
             <h1>장바구니</h1>
-            {items.lenght === 0 ? <p>장바구니가 비어있습니다.</p> : (
+            {items.length === 0 ? (<p>장바구니가 비어있습니다.</p>) : (
                 <div>
                     <ul>
                         {items.map(item => (
