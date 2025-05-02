@@ -14,7 +14,6 @@ function App() {
 
   return (
     <div>
-
       <Link to="/home">홈으로</Link>
       {' | '}
       <Link to="/about">설명으로</Link>
@@ -24,6 +23,9 @@ function App() {
       <RouterEx />
       {/* 컴포넌트 호출 */}
       <Counter count={count} setCount={setCount} />
+      <MyProvider>
+        <Parent />
+      </MyProvider>
     </div>
   );
 }
