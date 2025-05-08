@@ -34,21 +34,27 @@ let Todo = (props) => {
     //     })
     // }
 
+    // 수정
+    // 타이틀 변경을 위해 input의 필드에서 사용자가 입력을 받아올 때
+    // editItemHandler()에서 item을 바로 넘겨버리면 한글자씩 입력할 때마다
+    // HTTP 요청을 보내게 된다
+    // 이는 비효율적이기 때문에 수정을 완료한 시점에서 HTTP요청을 보내야 한다
+    // 입력이 끝나서 수정이 불가능한 샅애로 바뀌는 시점에
     const editItemHandler = (e) => {
-        item.title = e.target.value;
-        editItem();
+        setItem({ ...item, title:e.target.value })
     }
     
     const turnOnReadOnly = (e) => {
-        if(e.key == 'Enter') {
-            setReadOnly(true);
+        if(e.key == 'Enter' && readOnly === false) {
+            setReadOnly(true);  // readOnly true가 읽기만 가능
+            editItem(item);
         }
     }
 
     // 체크박스 변경함수
     const checkBoxEventHandler = (e) => {
         item.done = e.target.checked;
-        editItem();
+        editItem(item);
     }
 
     // 삭제함수
