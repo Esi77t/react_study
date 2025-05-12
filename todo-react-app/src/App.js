@@ -69,7 +69,7 @@ function App() {
     <div className="App">
       <Container maxWidth="md">
         {/* AddTodo에 add함수를 전달 {add : function add(item) {~}} */}
-        <AddTodo add={add}/>
+        <AddTodo add={ add }/>
           {todoItems}
       </Container>
     </div>
