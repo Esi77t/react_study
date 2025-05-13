@@ -2,7 +2,7 @@ let backendHost;
 
 const hostname = window && window.location && window.location.hostname;
 
-if(hostname == "hosthost") {
+if(hostname == "localhost") {
     backendHost = "http://localhost:10000";
 }
 
