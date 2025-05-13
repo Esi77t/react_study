@@ -61,7 +61,7 @@ const AddTodo = ({add}) => {
     return (
         <Grid 
             container
-            style={{MarginTop: 20}}
+            style={{marginTop: 20}}
             justifyContent="center"
             alignContent="center"
         >

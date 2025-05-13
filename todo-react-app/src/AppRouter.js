@@ -1,8 +1,9 @@
 import './index.css';
 import App from './App';
 import Login from './Login';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Typography, Box } from '@mui/material';
+import Signup from './Signup';
 
 
 const Copyright = () => {
@@ -21,12 +22,14 @@ const Copyright = () => {
 }
 
 const AppRouter = () => {
+    const token = localStorage.getItem("ACCESS_TOKEN");
     return(
         <div>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<App />} />
+                    <Route path="/" element={ token && token != 'null' ? <App /> : <Navigate to='login' replace />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
                 </Routes>
             </BrowserRouter>
             <Box mt={ 5 }>
