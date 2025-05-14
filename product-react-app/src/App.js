@@ -4,9 +4,7 @@ import P_info from './P_info';
 
 function App() {
   return (
-    <div className="App">
       <P_info />
-    </div>
   );
 }
 

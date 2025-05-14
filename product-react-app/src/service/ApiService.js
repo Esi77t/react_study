@@ -14,5 +14,5 @@ export function call(api, method, request) {
         method,
         data : request || undefined,
     })
-        .then(res => res.data);
+        .then(result => result.data);
 }

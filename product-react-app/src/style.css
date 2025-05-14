@@ -1,0 +1,15 @@
+.container {
+    height: 100vh;
+    color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.table {
+    color: blue;
+    size: 24px;
+    text-align: center;
+    background: #f0f0f0;
+}
