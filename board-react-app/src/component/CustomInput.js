@@ -5,12 +5,12 @@ const CustomInput = ({ label, type="text", multiline = false, rows = 1, value, o
     return(
         <TextField
             fullWidth
-            label={label}
-            type={type}
-            multiline={multiline}
-            rows={rows}
-            value={value}
-            onChange={onChange}
+            label={ label }
+            type={ type }
+            multiline={ multiline }
+            rows={ rows }
+            value={ value }
+            onChange={ onChange }
             margin="normal"
             inputProps={{
                 readOnly,
