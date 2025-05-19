@@ -7,19 +7,24 @@ import axios from "axios";
 const PostDetail = () => {
 
     const { boardList, setBoardList } = useContext(BoardContext);
-    const [item, setItem] = useState([]);
+    const [item, setItem] = useState({});
     const { id } = useParams();
     const navigate = useNavigate();
 
     // id를 통해 boardList에 들어있는 게시글을 한 건 꺼내서 화면에 출력하기
     // useEffect를 사용
+
+    const getBoard = async () => {
+        const response = await axios({
+            url: `http://localhost:10000/api/board/${id}`,
+            method: 'GET',
+        });
+        console.log(response);
+        setItem(response.data);
+    }
+
     useEffect(() => {
-        const post = boardList.find((post) => post.id === parseInt(id));
-        if(post) {
-            setItem(post);
-        } else {
-            console.log('게시글을 찾을 수 없습니다.');
-        }
+        getBoard();
     }, [id])
 
     const moveToEdit = () => {
@@ -32,14 +37,20 @@ const PostDetail = () => {
         //     alert("삭제되었습니다.")
         //     navigate("/");
         // }
+
+        // 백엔드에 삭제를 요청
+        // 응답으로 true 또는 false를 받아오기
         if(window.confirm("게시글을 삭제하시겠습니까?")) {
-            await axios({
-                url: `http://localhost:10000/api/board/post/${id}`,
+            try {
+                await axios({
+                url: `http://localhost:10000/api/board/${id}`,
                 method: 'delete',
-                }
-            )
-            alert("삭제했습니다.");
+                })
+            alert("삭제했습니다");
             navigate("/");
+            } catch (error) {
+                
+            }
         }
     }
 

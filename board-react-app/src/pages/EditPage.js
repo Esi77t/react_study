@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { BoardContext } from '../context/BoardContext';
 import CustomButton from '../component/CustomButton';
 import CustomInput from '../component/CustomInput';
+import axios from 'axios';
 
 const EditPost = () => {
 
@@ -34,12 +35,34 @@ const EditPost = () => {
     },[id, boardList])
 
     //2. 수정한 게시글을 게시글 목록에 반영하기
-    const updatePost = () => {
-        setBoardList((prevList) => 
-            prevList.map((item) =>
-                 item.id === parseInt(id) ? {...item, ...post}: item));
-        alert('게시물이 수정되었습니다')
-        navigate(`/post/${ id }`);
+    const updatePost = async () => {
+        // setBoardList((prevList) => 
+        //     prevList.map((item) =>
+        //          item.id === parseInt(id) ? {...item, ...post}: item));
+        // alert('게시물이 수정되었습니다')
+        // navigate(`/post/${ id }`);
+
+        try {
+            const response = await axios.put(`http://localhost:10000/api/board/${id}`, {
+                    id: parseInt(id),
+                    title,
+                    author,
+                    content,
+                    writingTime: new Date().toISOString(),
+                })
+            const success = response.data;
+
+            if(success) {
+                setBoardList((prev) => prev.map(
+                    (item) => item.id === parseInt(id) ? { ...item, ...post } : item
+                ))
+            }
+
+            alert("게시글이 수정되었습니다");
+            navigate(`/post/${id}`);
+        } catch (error) {
+            
+        }
     }
 
     const backToBoard = () => {
@@ -50,10 +73,11 @@ const EditPost = () => {
         <div>
             <h1>글 수정하기</h1>
             <form>
-                <CustomInput label="제목" value={ title } onChange={ onChange }/>
-                <CustomInput label="작성자" value={ author } onChange={ onChange }/>
+                <CustomInput label="제목" name="title" value={ title } onChange={ onChange }/>
+                <CustomInput label="작성자" name="author" value={ author } onChange={ onChange }/>
                 <CustomInput 
                     label="내용"
+                    name="content"
                     multiline
                     rows={6}
                     value={ content }

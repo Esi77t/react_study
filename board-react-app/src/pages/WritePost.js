@@ -15,6 +15,7 @@ const WritePost = () => {
     const [author, setAuthor] = useState("");
     const [content, setContent] = useState("");
 
+    // 데이터베이스에 게시글을 추가하는 기능
     const savePost = async(e) => {
         e.preventDefault();
         const newPost = {
@@ -42,7 +43,9 @@ const WritePost = () => {
                 "Content-Type":"application/json",
             }
         })
-        if(response.status === 200){
+
+        // 게시글이 정상적으로 등록이 되었을 때
+        if(response.status === 200) {
             alert('게시물이 등록되었습니다.')
             navigate("/");
         } else {

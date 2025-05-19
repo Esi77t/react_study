@@ -15,7 +15,7 @@ const BoardList = () => {
 
     const navigate = useNavigate();
 
-
+    // 데이터 베이스에 있는 모든 내용을 조회
     const getBoardList = async () => {
         try {
             const response = await axios({
@@ -27,7 +27,7 @@ const BoardList = () => {
             setBoardList(list);
             setTotalPages(Math.ceil(list.length/postsPerPage));
         } catch (error) {
-            
+            console.log(error.message);
         }
     }
 
