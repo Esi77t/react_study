@@ -8,8 +8,15 @@ function MultipleButtons() {
         const buttonId = e.target.id;
 
         switch(buttonId) {
-            case 'address':
+            case "address":
                 navigate("/address");
+                break;
+            case "movie":
+                navigate("/movie");
+                break;
+            case "map":
+                navigate("/map");
+                break;
         }
     }
 
@@ -17,6 +24,14 @@ function MultipleButtons() {
         <div>
             <button id="address" onClick={ handleButtonClick }>
                 주소찾기 API
+            </button>
+            {" "}
+            <button id="movie" onClick={ handleButtonClick }>
+                영화 API
+            </button>
+            {" "}
+            <button id="map" onClick={ handleButtonClick }>
+                카카오지도 API
             </button>
         </div>
     )
