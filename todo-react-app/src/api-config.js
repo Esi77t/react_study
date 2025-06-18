@@ -17,8 +17,10 @@ let backendHost;
 const hostname = window && window.location && window.location.hostname;
 
 // http://localhost:10000/todo
-if(hostname == "localhost") {
-    backendHost = "http://localhost:10000";
+if(hostname === "localhost") {
+    backendHost = "http://localhost:5000";
+} else {
+    backendHost = "Springboot-developer-env.eba-mnmcvere.ap-northeast-2.elasticbeanstalk.com"
 }
 
-export const API_BASE_URL = `${backendHost}`;
+export const API_BASE_URL = `${ backendHost }`;

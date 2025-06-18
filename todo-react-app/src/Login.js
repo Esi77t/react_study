@@ -17,14 +17,14 @@ const Login = () => {
         console.log("비밀번호 : ", password);
 
         // signin 호출 로직
-        signin({username:username, password:password});
+        signin({ username: username, password: password });
     }
 
     return(
-        <Container component="main" maxWidth="xs" style={{marginTop:'8%'}}>
+        <Container component="main" maxWidth="xs" style={{marginTop: 8}}>
             <Grid container spacing={ 2 }>
                 <Grid item xs={ 12 }>
-                    <Typography component="h1" variant="h5" style={{ marginBottom: '16px' }}>
+                    <Typography component="h1" variant="h5" align="center" gutterBottom>
                         로그인
                     </Typography>
                 </Grid>

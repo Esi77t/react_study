@@ -17,6 +17,7 @@ const apiClient = axios.create({
 // 2. 요청 인터셉터로 토큰 자동 첨부
 // interceptors.request.use(onFulfilled, onRejected) : 역할이 서버로 전송되기 전에 호출 될 콜백함수를 등록
 apiClient.interceptors.request.use(config => {
+    console.log(`${config.method?.toUpperCase()} ${config.baseURL}${config.url}`);
     const token = localStorage.getItem("ACCESS_TOKEN");
     if(token) {
         config.headers.Authorization = `Bearer ${token}`;
@@ -34,7 +35,7 @@ apiClient.interceptors.response.use(response => response,
         const status = error.response?.status;
         if(status === 403) {
             window.location.href='/login';
-            return Promise.resolve({data:null, status:403})
+            return Promise.resolve({data:null, status: status})
         }
         // 이 에러가 다음 catch블록이나 호출 측으로 전달되도록 한다
         return Promise.reject(error);
@@ -46,50 +47,6 @@ apiClient.interceptors.response.use(response => response,
 // method : HTTP메서드(GET, POST, PUT, DELETE)
 // request : 요청에 담을 데이터(주로 POST, PUT에서 사용)
 export function call(api, method, request) {
-
-    // let headers = new Headers({
-    //     "Content-Type":"application/json"
-    // })
-
-    // // 로컬 스토리지에 저장된 ACESS_TOKEN 가져오기
-    // const acceessToken = localStorage.getItem("ACCESS_TOKEN");
-    // if(acceessToken && acceessToken !== null) {
-    //     headers.append("Authorization", "Bearer " + acceessToken);
-    // }
-
-    // // Content-Type : application/json
-    // // Authorization : Bearer 토큰 값
-
-    // // 기본 옵션 설정
-    // let options = {
-    //     url : API_BASE_URL + api,
-    //     method : method,
-    //     headers : headers,
-    // }
-
-    // // false, 0, 빈 문자열, null, undefined, NaN -> false로 취급
-    // if(request) {
-    //     // JSON.stringify() : 객체를 JSON문자열로 반환
-    //     options.data = JSON.stringify(request);
-    // }
-
-    // 앞서 설정한 options 객체를 사용하여 axios로 HTTP요청을 보낸다.
-    // return axios(options)
-    //         // 요청이 성공적으로 처리된 경우 실행되는 코드
-    //         .then(response => {
-    //             console.log(response.data);
-    //             return response.data;
-    //         })
-    //         .catch(error => {
-    //             console.log("에러코드 : ", error);
-    //             if(error.status === 403) {
-    //                 // 403코드면 로그인 path로 가라
-    //                 // window.location.href : 브라우저가 해당 URL로 새 HTTP요청을 보낸다
-    //                 // 사용자가 한 것은 아니지만 새 요청이 발생
-    //                 window.location.href="/login";
-    //             }
-    //         })
-
     return apiClient({
         url : api,
         method,

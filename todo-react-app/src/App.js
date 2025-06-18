@@ -24,7 +24,7 @@ function App() {
   // 최초 렌더링 시 한번만 실행
   useEffect(() => {
     // 조회
-    call("/todo", "GET", null)
+    call("/todo", "GET")
       .then(result => {
         setItem(result.data)
         setLoading(false)
